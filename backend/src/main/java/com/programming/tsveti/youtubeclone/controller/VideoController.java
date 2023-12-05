@@ -11,12 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class VideoController {
 
-    private VideoService videoService;
+    private final VideoService videoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadVideo(@RequestParam("file")MultipartFile file) {
         videoService.uploadVideo(file);
-
     }
 }
