@@ -1,5 +1,7 @@
 package com.programming.tsveti.youtubeclone.controller;
 
+import com.programming.tsveti.youtubeclone.dto.UploadVideoResponse;
+import com.programming.tsveti.youtubeclone.dto.VideoDto;
 import com.programming.tsveti.youtubeclone.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,19 @@ public class VideoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadVideo(@RequestParam("file")MultipartFile file) {
-        videoService.uploadVideo(file);
+    public UploadVideoResponse uploadVideo(@RequestParam("file")MultipartFile file) {
+      return videoService.uploadVideo(file);
+    }
+
+    @PostMapping("/thumbnail")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String uploadThumbnail(@RequestParam("file") MultipartFile file, @RequestParam("videoId") String videoId) {
+        System.out.println("ei go " + videoId);
+        return videoService.uploadThumbnail(file, videoId);
+    }
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto editVideoMetaData(@RequestBody VideoDto videoDto){
+        return videoService.editVideo(videoDto);
     }
 }
